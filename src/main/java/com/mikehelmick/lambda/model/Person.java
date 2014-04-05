@@ -1,5 +1,6 @@
 package com.mikehelmick.lambda.model;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.google.common.base.Predicate;
@@ -11,10 +12,56 @@ public class Person {
   private String name;
   private int age;
   private List<Account> accounts = Lists.newArrayList();
+  
+  public static class Builder {
+    private String name;
+    private int age;
+    private List<Account> accounts = Lists.newArrayList();
+    
+    Builder() {
+      
+    }
+    
+    public Builder setName(final String name) {
+      this.name = name;
+      return this;
+    }
+    
+    public Builder setAge(final int age) {
+      this.age = age;
+      return this;
+    }
+    
+    public Builder addAccount(final Account account) {
+      this.accounts.add(account);
+      return this;
+    }
+    
+    public Builder addAccounts(final Collection<Account> accounts) {
+      this.accounts.addAll(accounts);
+      return this;
+    }
+    
+    public Person build() {
+      final Person p = new Person(name, age);
+      p.setAccounts(accounts);
+      return p;
+    }
+  }
 
   public Person(String name, int age) {
     this.name = name;
     this.age = age;
+  }
+  
+  public Person(Person that) {
+    this.name = that.name;
+    this.age = that.age;
+    accounts = Lists.transform(accounts, (acct) -> new Account(acct));
+  }
+  
+  public static Builder builder() {
+    return new Builder();
   }
 
   public String getName() {
@@ -31,6 +78,10 @@ public class Person {
 
   public void setAge(int age) {
     this.age = age;
+  }
+  
+  public void setAccounts(List<Account> accounts) {
+    this.accounts = Lists.newArrayList(accounts);
   }
 
   public List<Account> getAccounts() {

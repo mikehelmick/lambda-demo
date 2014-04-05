@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import com.mikehelmick.lambda.model.Account;
 import com.mikehelmick.lambda.model.Person;
 
-public class Demo {
+public class Java7Example {
   
   public static List<Person> filterBySite(List<Person> data, final String site) {
     final List<Person> result = Lists.newArrayList(

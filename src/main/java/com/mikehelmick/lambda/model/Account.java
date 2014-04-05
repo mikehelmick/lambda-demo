@@ -10,6 +10,10 @@ public class Account {
     this.username = username;
     this.password = password;
   }
+  
+  public Account(Account that) {
+    this(that.webSite, that.username, that.password);
+  }
 
   public String getWebSite() {
     return webSite;
